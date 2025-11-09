@@ -161,7 +161,7 @@ export function CalendarView({ dailyPL }: CalendarViewProps) {
       <div className="calendar-header">
         <div className="calendar-header-left">
           <h3>Trades Calendar ({formatMonthLabel(currentMonth)})</h3>
-          <span className={`monthly-pl-badge ${monthlyPL >= 0 ? 'success' : 'error'}`}>
+          <span className={`monthly-pl-badge ${monthlyPL === 0 ? 'even' : monthlyPL >= 0 ? 'success' : 'error'}`}>
             {formatCurrency(monthlyPL)}
           </span>
         </div>
@@ -216,7 +216,7 @@ export function CalendarView({ dailyPL }: CalendarViewProps) {
                   return (
                     <td
                       key={dayIdx}
-                      className={`calendar-cell ${!isCurrentMonthDay ? 'other-month' : ''} ${isSelected ? 'selected' : ''} ${day.hasTrades ? (isProfit ? 'has-trades profit' : 'has-trades loss') : 'no-trades'}`}
+                      className={`calendar-cell ${!isCurrentMonthDay ? 'other-month' : ''} ${isSelected ? 'selected' : ''} ${day.hasTrades ? (day.pl === 0 ? 'has-trades even' : isProfit ? 'has-trades profit' : 'has-trades loss') : 'no-trades'}`}
                       onClick={() => setSelectedDate(day.dateString === selectedDate ? null : day.dateString)}
                       title={day.hasTrades ? `${day.dateString}: ${formatCurrency(day.pl)} - ${day.tradeCount} trades` : day.dateString}
                     >
@@ -224,7 +224,7 @@ export function CalendarView({ dailyPL }: CalendarViewProps) {
                         <div className="calendar-day-number">{day.dayNumber}</div>
                         {day.hasTrades && (
                           <>
-                            <div className={`calendar-day-pl ${isProfit ? 'profit' : 'loss'}`}>
+                            <div className={`calendar-day-pl font-comic-sans ${day.pl === 0 ? 'even' : isProfit ? 'profit' : 'loss'}`}>
                               {formatCurrency(day.pl)}
                             </div>
                             <div className="calendar-day-trades">{day.tradeCount} trades</div>
@@ -236,7 +236,7 @@ export function CalendarView({ dailyPL }: CalendarViewProps) {
                 })}
                 <td className="week-total-cell">
                   <div className="week-total-content">
-                    <div className={`week-total-pl ${week.weekPL === 0 ? 'even' : week.weekPL >= 0 ? 'profit' : 'loss'}`}>
+                    <div className={`week-total-pl font-comic-sans ${week.weekPL === 0 ? 'even' : week.weekPL >= 0 ? 'profit' : 'loss'}`}>
                       {formatCurrency(week.weekPL)}
                     </div>
                   </div>

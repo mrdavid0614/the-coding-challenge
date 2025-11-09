@@ -34,7 +34,6 @@
   border-radius: 6px;
   font-size: 0.9em;
   font-weight: 600;
-  font-family: 'Courier New', monospace;
 }
 
 .monthly-pl-badge.success {
@@ -43,9 +42,17 @@
   border: 1px solid rgba(34, 197, 94, 0.3);
 }
 
+.monthly-pl-badge.even {
+  background: rgba(239, 239, 239, 0.08);
+  color: #efe4d2;
+  font-weight: bold;
+  border: 1px solid rgba(239, 239, 239, 0.3);
+}
+
 .monthly-pl-badge.error {
-  background: rgba(239, 68, 68, 0.2);
-  color: #ef4444;
+  background: rgba(239, 68, 68, 0.08);
+  color: #fc5f5f;
+  font-weight: bold;
   border: 1px solid rgba(239, 68, 68, 0.3);
 }
 
@@ -143,6 +150,10 @@
   border-left: 3px solid #22c55e;
 }
 
+.calendar-cell.has-trades.even {
+  border-left: 3px solid #efe4d2;
+}
+
 .calendar-cell.has-trades.loss {
   border-left: 3px solid #ef4444;
 }
@@ -168,12 +179,15 @@
 .calendar-day-pl {
   font-size: 0.75em;
   font-weight: 500;
-  font-family: 'Courier New', monospace;
   line-height: 1.2;
 }
 
 .calendar-day-pl.profit {
   color: #22c55e;
+}
+
+.calendar-day-pl.even {
+  color: #efe4d2;
 }
 
 .calendar-day-pl.loss {
@@ -204,7 +218,6 @@
 .week-total-pl {
   font-size: 0.9em;
   font-weight: 700;
-  font-family: 'Courier New', monospace;
 }
 
 .week-total-pl.profit {
