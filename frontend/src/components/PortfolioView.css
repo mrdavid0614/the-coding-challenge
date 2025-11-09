@@ -1,0 +1,131 @@
+.portfolio-view {
+  width: 100%;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.portfolio-header {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.portfolio-header h2 {
+  margin: 0 0 16px 0;
+  font-size: 2em;
+  background: linear-gradient(135deg, #646cff 0%, #535bf2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.portfolio-summary {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.summary-label {
+  font-size: 0.9em;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.summary-value {
+  font-size: 1.5em;
+  font-weight: 600;
+  font-family: 'Courier New', monospace;
+}
+
+.summary-value.profit {
+  color: #22c55e;
+}
+
+.summary-value.loss {
+  color: #ef4444;
+}
+
+.portfolio-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  flex-wrap: wrap;
+}
+
+.tab-button {
+  padding: 12px 24px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 500;
+  transition: all 0.2s;
+  margin-bottom: -1px;
+}
+
+.tab-button:hover {
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(100, 108, 255, 0.1);
+}
+
+.tab-button.active {
+  color: #646cff;
+  border-bottom-color: #646cff;
+  background: rgba(100, 108, 255, 0.05);
+}
+
+.portfolio-content {
+  width: 100%;
+}
+
+.portfolio-loading,
+.portfolio-error {
+  padding: 48px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.portfolio-error {
+  color: #ef4444;
+}
+
+@media (prefers-color-scheme: light) {
+  .portfolio-header {
+    border-bottom-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .summary-label {
+    color: rgba(33, 53, 71, 0.7);
+  }
+
+  .portfolio-tabs {
+    border-bottom-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .tab-button {
+    color: rgba(33, 53, 71, 0.7);
+  }
+
+  .tab-button:hover {
+    color: rgba(33, 53, 71, 0.9);
+    background: rgba(100, 108, 255, 0.1);
+  }
+
+  .tab-button.active {
+    color: #646cff;
+  }
+
+  .portfolio-loading,
+  .portfolio-error {
+    color: rgba(33, 53, 71, 0.7);
+  }
+}
+

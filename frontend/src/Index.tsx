@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { PortfolioView } from './components/PortfolioView';
 import './App.css';
 
 function Index() {
@@ -12,21 +13,7 @@ function Index() {
           <Link to="/readme" style={{ color: '#646cff', textDecoration: 'none' }}>README</Link>
         </div>
       </div>
-      <h2>Portfolio View</h2>
-      <p>Start building your portfolio view here!</p>
-      <p>
-        This is where you should implement your portfolio view that displays:
-      </p>
-      <ul>
-        <li><strong>Assets</strong> - The name/symbol of the asset</li>
-        <li><strong>Quantity</strong> - The number of shares/units held</li>
-        <li><strong>Cost Basis</strong> - The total cost of acquiring the position</li>
-        <li><strong>Unrealized P/L</strong> - The current profit or loss (in dollars)</li>
-        <li><strong>Unrealized P/L %</strong> - The current profit or loss (as a percentage)</li>
-      </ul>
-      <p>
-        Use the <Link to="/api/viewer" style={{ color: '#646cff', textDecoration: 'none' }}>API endpoints</Link> to fetch the data you need for your portfolio view.
-      </p>
+      <PortfolioView />
     </div>
   );
 }
