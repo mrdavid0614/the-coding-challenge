@@ -25,6 +25,8 @@ export interface ProcessedOrder {
   limitPrice?: string;
   commissionFee: string;
   currency: string;
+  rejectReason?: string;
+  spread?: string;
   legs: Array<{
     symbol: string;
     underlying?: string;
@@ -45,6 +47,7 @@ export interface DailyPL {
   date: string;
   realizedPL: number;
   tradeCount: number;
+  symbols: string[];
 }
 
 export interface PortfolioData {

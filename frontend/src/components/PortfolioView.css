@@ -69,17 +69,22 @@
   font-weight: 500;
   transition: all 0.2s;
   margin-bottom: -1px;
+  outline: none;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .tab-button:hover {
   color: rgba(255, 255, 255, 0.9);
   background: rgba(100, 108, 255, 0.1);
+  outline: none;
 }
 
 .tab-button.active {
   color: #646cff;
   border-bottom-color: #646cff;
   background: rgba(100, 108, 255, 0.05);
+  outline: none;
 }
 
 .portfolio-content {

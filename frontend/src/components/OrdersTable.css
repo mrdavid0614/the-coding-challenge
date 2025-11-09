@@ -55,38 +55,97 @@
   font-size: 0.8em;
 }
 
+.font-comic-sans {
+  font-family: 'Comic Sans', monospace;
+}
+
 .status-badge {
   display: inline-block;
   padding: 4px 8px;
   border-radius: 4px;
   font-size: 0.85em;
   font-weight: 500;
-  font-family: 'Courier New', monospace;
+  font-family: 'Comic Sans', monospace;
 }
 
 .status-badge.status-filled {
-  background: rgba(34, 197, 94, 0.2);
+  background: rgba(34, 197, 94, 0.08);
+  font-weight: bold;
   color: #22c55e;
 }
 
 .status-badge.status-open {
-  background: rgba(100, 108, 255, 0.2);
-  color: #646cff;
+  background: rgba(206, 206, 104, 0.08);
+  font-weight: bold;
+  color: rgb(206, 206, 104);
 }
 
 .status-badge.status-expired {
-  background: rgba(156, 163, 175, 0.2);
-  color: #9ca3af;
+  background: rgba(156, 163, 175, 0.08);
+  font-weight: bold;
+  color: #c0c2c5;
 }
 
 .status-badge.status-rejected {
-  background: rgba(239, 68, 68, 0.2);
+  background: rgba(239, 68, 68, 0.08);
+  font-weight: bold;
   color: #ef4444;
 }
 
 .status-badge.status-default {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
+  font-weight: bold;
   color: rgba(255, 255, 255, 0.7);
+}
+
+.orders-table tbody tr {
+  position: relative;
+}
+
+.order-row-with-tooltip {
+  position: relative;
+}
+
+.order-row-with-tooltip > td:first-child {
+  position: relative;
+}
+
+.order-tooltip {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  background-color: rgba(0, 0, 0, 0.95);
+  color: #fff;
+  text-align: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.85em;
+  z-index: 1000;
+  pointer-events: none;
+  transition: opacity 0.2s, visibility 0.2s;
+  max-width: 300px;
+  white-space: normal;
+  word-wrap: break-word;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  width: max-content;
+  min-width: 200px;
+}
+
+.order-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: rgba(0, 0, 0, 0.95);
+}
+
+.order-row-with-tooltip:hover .order-tooltip {
+  visibility: visible;
+  opacity: 1;
 }
 
 .legs-container {
@@ -138,8 +197,8 @@
   }
 
   .status-badge.status-open {
-    background: rgba(100, 108, 255, 0.15);
-    color: #646cff;
+    background: rgba(206, 206, 104, 0.15);
+    color: rgb(206, 206, 104);
   }
 
   .status-badge.status-expired {
@@ -155,6 +214,15 @@
   .status-badge.status-default {
     background: rgba(0, 0, 0, 0.1);
     color: rgba(33, 53, 71, 0.7);
+  }
+
+  .order-tooltip {
+    background-color: rgba(33, 53, 71, 0.95);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .order-tooltip::after {
+    border-top-color: rgba(33, 53, 71, 0.95);
   }
 
   .leg-item {

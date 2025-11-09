@@ -57,6 +57,8 @@ export function processOrder(order: Order): ProcessedOrder {
     limitPrice: order.LimitPrice,
     commissionFee: order.CommissionFee,
     currency: order.Currency,
+    rejectReason: order.RejectReason,
+    spread: order.Spread,
     legs: order.Legs.map(leg => ({
       symbol: leg.Symbol,
       underlying: leg.Underlying,
@@ -217,7 +219,7 @@ export function getClosedOrders(historicalOrders: Order[]): ProcessedOrder[] {
  * Calcula el Realized P/L diario
  */
 export function calculateDailyPL(closedOrders: ProcessedOrder[]): DailyPL[] {
-  const dailyMap = new Map<string, { realizedPL: number; tradeCount: number }>();
+  const dailyMap = new Map<string, { realizedPL: number; tradeCount: number; symbols: Set<string> }>();
 
   closedOrders.forEach(order => {
     if (!order.closedDateTime) return;
@@ -225,7 +227,7 @@ export function calculateDailyPL(closedOrders: ProcessedOrder[]): DailyPL[] {
     const date = new Date(order.closedDateTime).toISOString().split('T')[0];
     
     if (!dailyMap.has(date)) {
-      dailyMap.set(date, { realizedPL: 0, tradeCount: 0 });
+      dailyMap.set(date, { realizedPL: 0, tradeCount: 0, symbols: new Set<string>() });
     }
 
     const daily = dailyMap.get(date)!;
@@ -238,6 +240,13 @@ export function calculateDailyPL(closedOrders: ProcessedOrder[]): DailyPL[] {
     // Agregar la comisión total como costo (las comisiones reducen el P/L)
     const totalCommission = parseFloat(order.commissionFee) || 0;
     daily.realizedPL -= totalCommission;
+    
+    // Recopilar símbolos tradeados en esta orden
+    order.legs.forEach(leg => {
+      if (leg.symbol) {
+        daily.symbols.add(leg.symbol);
+      }
+    });
     
     // Nota: Para un cálculo más preciso del P/L realizado, necesitaríamos:
     // 1. Rastrear el cost basis de cada posición cuando se abre
@@ -253,6 +262,7 @@ export function calculateDailyPL(closedOrders: ProcessedOrder[]): DailyPL[] {
       date,
       realizedPL: data.realizedPL,
       tradeCount: data.tradeCount,
+      symbols: Array.from(data.symbols).sort(),
     }))
     .sort((a, b) => a.date.localeCompare(b.date));
 }

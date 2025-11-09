@@ -10,7 +10,7 @@ export function PortfolioTable({ positions }: PortfolioTableProps) {
   if (positions.length === 0) {
     return (
       <div className="portfolio-empty-state">
-        <p>No hay posiciones abiertas</p>
+        <p>No open positions</p>
       </div>
     );
   }

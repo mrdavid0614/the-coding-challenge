@@ -41,7 +41,7 @@ export function PortfolioView() {
         ]);
 
         if (!historicalRes.ok || !openOrdersRes.ok || !livePricesRes.ok) {
-          throw new Error('Error al cargar los datos de la API');
+          throw new Error('Error loading API data');
         }
 
         const [historicalData, openOrdersData, livePricesData] = await Promise.all([
@@ -54,7 +54,7 @@ export function PortfolioView() {
         setOpenOrders(openOrdersData);
         setLivePrices(livePricesData);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Error desconocido');
+        setError(err instanceof Error ? err.message : 'Unknown error');
         console.error('Error fetching portfolio data:', err);
       } finally {
         setLoading(false);
@@ -82,7 +82,7 @@ export function PortfolioView() {
   if (loading) {
     return (
       <div className="portfolio-loading">
-        <p>Cargando datos del portafolio...</p>
+        <p>Loading portfolio data...</p>
       </div>
     );
   }
@@ -128,25 +128,25 @@ export function PortfolioView() {
           className={`tab-button ${activeTab === 'positions' ? 'active' : ''}`}
           onClick={() => setActiveTab('positions')}
         >
-          Posiciones Abiertas ({positions.length})
+          Open Positions ({positions.length})
         </button>
         <button
           className={`tab-button ${activeTab === 'open-orders' ? 'active' : ''}`}
           onClick={() => setActiveTab('open-orders')}
         >
-          Órdenes Abiertas ({processedOpenOrders.length})
+          Open Orders ({processedOpenOrders.length})
         </button>
         <button
           className={`tab-button ${activeTab === 'closed-orders' ? 'active' : ''}`}
           onClick={() => setActiveTab('closed-orders')}
         >
-          Órdenes Cerradas ({processedClosedOrders.length})
+          Closed Orders ({processedClosedOrders.length})
         </button>
         <button
           className={`tab-button ${activeTab === 'calendar' ? 'active' : ''}`}
           onClick={() => setActiveTab('calendar')}
         >
-          Calendario P/L
+          P/L Calendar
         </button>
       </div>
 
