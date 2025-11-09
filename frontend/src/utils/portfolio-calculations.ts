@@ -308,3 +308,85 @@ export function formatDate(dateString: string): string {
   }
 }
 
+/**
+ * Calcula estadísticas generales del portafolio
+ */
+export interface PortfolioStats {
+  totalTrades: number;
+  totalRealizedPL: number;
+  totalUnrealizedPL: number;
+  totalPL: number;
+  winningDays: number;
+  losingDays: number;
+  breakEvenDays: number;
+  winRate: number;
+  averageDailyPL: number;
+  bestDay: { date: string; pl: number } | null;
+  worstDay: { date: string; pl: number } | null;
+  totalCommissions: number;
+}
+
+export function calculatePortfolioStats(
+  dailyPL: DailyPL[],
+  positions: Position[]
+): PortfolioStats {
+  const totalTrades = dailyPL.reduce((sum, day) => sum + day.tradeCount, 0);
+  const totalRealizedPL = dailyPL.reduce((sum, day) => sum + day.realizedPL, 0);
+  const totalUnrealizedPL = positions.reduce((sum, p) => sum + p.unrealizedPL, 0);
+  const totalPL = totalRealizedPL + totalUnrealizedPL;
+
+  const winningDays = dailyPL.filter(day => day.realizedPL > 0).length;
+  const losingDays = dailyPL.filter(day => day.realizedPL < 0).length;
+  const breakEvenDays = dailyPL.filter(day => day.realizedPL === 0).length;
+  const totalDaysWithTrades = winningDays + losingDays + breakEvenDays;
+  const winRate = totalDaysWithTrades > 0 ? (winningDays / totalDaysWithTrades) * 100 : 0;
+  const averageDailyPL = dailyPL.length > 0 ? totalRealizedPL / dailyPL.length : 0;
+
+  const bestDay = dailyPL.length > 0
+    ? dailyPL.reduce((best, day) => day.realizedPL > best.realizedPL ? day : best, dailyPL[0])
+    : null;
+  const worstDay = dailyPL.length > 0
+    ? dailyPL.reduce((worst, day) => day.realizedPL < worst.realizedPL ? day : worst, dailyPL[0])
+    : null;
+
+  // Calcular comisiones totales (aproximación basada en órdenes cerradas)
+  // Nota: Esto es una aproximación, ya que las comisiones ya están incluidas en el realizedPL
+  const totalCommissions = Math.abs(totalRealizedPL) * 0.01; // Estimación del 1% del P/L
+
+  return {
+    totalTrades,
+    totalRealizedPL,
+    totalUnrealizedPL,
+    totalPL,
+    winningDays,
+    losingDays,
+    breakEvenDays,
+    winRate,
+    averageDailyPL,
+    bestDay: bestDay ? { date: bestDay.date, pl: bestDay.realizedPL } : null,
+    worstDay: worstDay ? { date: worstDay.date, pl: worstDay.realizedPL } : null,
+    totalCommissions,
+  };
+}
+
+/**
+ * Calcula el performance histórico acumulado para el gráfico
+ */
+export interface PerformanceDataPoint {
+  date: string;
+  cumulativePL: number;
+  dailyPL: number;
+}
+
+export function calculateCumulativePerformance(dailyPL: DailyPL[]): PerformanceDataPoint[] {
+  let cumulativePL = 0;
+  return dailyPL.map(day => {
+    cumulativePL += day.realizedPL;
+    return {
+      date: day.date,
+      cumulativePL,
+      dailyPL: day.realizedPL,
+    };
+  });
+}
+

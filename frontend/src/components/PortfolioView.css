@@ -37,9 +37,9 @@
 }
 
 .summary-value {
-  font-size: 1.5em;
+  font-size: 1.3em;
   font-weight: 600;
-  font-family: 'Courier New', monospace;
+  font-family: 'Comic Sans', monospace;
 }
 
 .summary-value.profit {

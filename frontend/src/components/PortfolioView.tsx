@@ -10,6 +10,7 @@ import {
 import { PortfolioTable } from './PortfolioTable';
 import { OrdersTable } from './OrdersTable';
 import { CalendarView } from './CalendarView';
+import { PortfolioStats } from './PortfolioStats';
 import './PortfolioView.css';
 
 export function PortfolioView() {
@@ -26,7 +27,7 @@ export function PortfolioView() {
   const [livePrices, setLivePrices] = useState<LivePricesResponse>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'positions' | 'open-orders' | 'closed-orders' | 'calendar'>('positions');
+  const [activeTab, setActiveTab] = useState<'positions' | 'open-orders' | 'closed-orders' | 'calendar' | 'stats'>('positions');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -148,6 +149,12 @@ export function PortfolioView() {
         >
           P/L Calendar
         </button>
+        <button
+          className={`tab-button ${activeTab === 'stats' ? 'active' : ''}`}
+          onClick={() => setActiveTab('stats')}
+        >
+          Portfolio Stats
+        </button>
       </div>
 
       <div className="portfolio-content">
@@ -155,6 +162,7 @@ export function PortfolioView() {
         {activeTab === 'open-orders' && <OrdersTable orders={processedOpenOrders} showLegs={true} />}
         {activeTab === 'closed-orders' && <OrdersTable orders={processedClosedOrders} showLegs={true} />}
         {activeTab === 'calendar' && <CalendarView dailyPL={dailyPL} />}
+        {activeTab === 'stats' && <PortfolioStats positions={positions} dailyPL={dailyPL} />}
       </div>
     </div>
   );
